@@ -1,13 +1,13 @@
 # FraterChrist
 
-**Una red social cristiana de código abierto para la comunión, el aprendizaje bíblico y la colaboración.**
+**Red social cristiana de código abierto para la comunión y edificación entre hermanos, ideada para el aprendizaje bíblico y la colaboración para la gran comisión [**Mateo 18:16-20**](https://www.bible.com/es/bible/compare/MAT.28.16-20)**
 
 FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad cristiana en un mismo lugar. Es un proyecto personal de aprendizaje; está en desarrollo y todavía no es una aplicación funcional.
 
 ## Módulos
 
 - **Feed:** publicaciones y conversaciones por hilos.
-- **Zona doctrinal:** preguntas, respuestas, bosquejos y recursos.
+- **Zona doctrinal:** preguntas y respuestas, debates, bosquejos y recursos.
 - **Mesa:** devocionales, estudios bíblicos, ideas, programación y videojuegos.
 - **Kit:** Biblia, cuaderno y herramientas.
 - **Notificaciones:** correos de edificación y newsletters voluntarios.
