@@ -29,7 +29,7 @@ Nota. Estos módulos son solo la visión del producto, se implementarán según 
 
 ## Competencias y evidencias
 
-| Competencia que quiero demostrar | Evidencia que encontrará el revisor |
+| Competencia | Evidencia |
 |---|---|
 | Python y programación orientada a objetos | Módulos de dominio pequeños, casos de uso y pruebas que pueda explicar. |
 | SQL y PostgreSQL | Modelo relacional, migraciones, restricciones, consultas documentadas y pruebas de persistencia. |
@@ -44,26 +44,36 @@ La correspondencia detallada entre mi CV y las evidencias está en [docs/MAPA-CV
 
 ## Arquitectura prevista
 
-Se empezará con un **backend Python organizado como monolito modular**. Cada módulo tendrá responsabilidades claras y se integrará mediante interfaces explícitas; no se crearán microservicios ni capas innecesarias para aparentar complejidad.
+Se empezará con un **backend Python organizado como monolito modular**. Cada módulo tendrá responsabilidades claras y se integrará mediante interfaces explícitas; no se crearán microservicios ni capas no viables.
 
-**Stack inicial propuesto:**
+**Stack inicial:**
 
-- Python 3.12 o superior, según compatibilidad comprobada del entorno.
+Node.js
+-Procesamiento asincronico
+
+Fronted:
+-Figma para interfaz
+-Next.Js
+
+Backend:
+- Python 3.12.
 - FastAPI para la API REST.
+- PostgreSQL con extensiones ltree y JSONB.
 - Pydantic para validar y describir datos.
-- PostgreSQL como base de datos relacional.
-- SQLAlchemy 2 y Alembic para acceso a datos y migraciones.
-- pytest para pruebas y Ruff para calidad estática/formato.
+- Apache Kafka.
+- Herramientas y Pruebas:
+- SQLAlchemy 2 para acceso a datos con python.
+- Alembic para migraciones.
+- pytest para pruebas unitarias.
+- Ruff para validación de calidad.
 - Docker Compose para un entorno local reproducible.
 - GitHub Actions para ejecutar comprobaciones automáticas.
 
-Las herramientas se confirmarán al construir la primera versión ejecutable. El stack puede cambiar si una prueba técnica demuestra una alternativa mejor.
+El stack oficial se confirmará después de el MVP. El stack puede cambiar si una prueba técnica demuestra una alternativa mejor.
 
 Consulta [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) y la decisión inicial [docs/decisions/ADR-001-architecture.md](docs/decisions/ADR-001-architecture.md).
 
-## Cómo revisar el proyecto
-
-Para un entrevistador o revisor técnico, sugiero este recorrido:
+## Cómo revisar el proyecto - Revisores técnicos
 
 1. Leer [docs/REQUISITOS.md](docs/REQUISITOS.md) para entender el alcance y los criterios de aceptación.
 2. Consultar [docs/PLAN-APRENDIZAJE.md](docs/PLAN-APRENDIZAJE.md) para ver el progreso por etapas y qué aprendizaje valida cada una.
