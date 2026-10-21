@@ -3,27 +3,29 @@
 **Red social cristiana de código abierto para edificación, aprendizaje bíblico y colaboración.**  
 **Proyecto personal de aprendizaje orientado a backend, APIs REST y PostgreSQL.**
 
-> **Estado actual:** fase de planificación y documentación. La API y las funcionalidades de producto aún no están implementadas. La hoja de ruta distingue el trabajo completado de lo pendiente.
+> **Estado del proyecto:** fase de planificación y documentación. La API y las funcionalidades de producto aún no están implementadas como tal. En la carpeta /MVP estará una demostración de un MVP del proyecto que demuestra mi desempeño en Python, TS, API REST y SQL.
 
 ## ¿Qué quiero demostrar con este proyecto?
 
-Soy estudiante de Ingeniería de Software y Datos en la IU Digital de Antioquia y aprendiz de Análisis y Desarrollo de Software (ADSO) en el SENA. Busco fortalecer mi perfil de desarrollo backend mediante incrementos pequeños de FraterChrist, documentando tanto los resultados como las decisiones y pruebas que los respaldan.
+Soy estudiante de Ingeniería de Software y Datos en la IU Digital de Antioquia y aprendiz de Análisis y Desarrollo de Software (ADSO) en el SENA. Busco fortalecer mi perfil de desarrollo backend junior mediante incrementos progresivos de FraterChrist, documentando tanto los resultados como las decisiones y pruebas que los respaldan.
 
-El objetivo no es presentar una red social terminada, sino demostrar cómo convierto requisitos en una solución mantenible: diseño del dominio, modelado relacional, construcción de una API REST, validación de entradas, pruebas, seguridad básica y documentación técnica.
+El objetivo de este proyecto y su MVP es demostrar mis bases sobre modelado relacional, construcción e implementación de APIs REST, validación de entradas, pruebas, seguridad básica y documentación técnica. Asimismo, la colaboración con otros developers voluntarios a contribuir en este proyecto.
 
 ## Problema y propuesta
 
-Las comunidades cristianas suelen repartir sus conversaciones, recursos de estudio y colaboraciones entre distintas herramientas. FraterChrist propone reunir estas actividades en una plataforma abierta, organizada por módulos independientes.
+Las comunidades cristianas siempre tienden a tener comuión unos con otros incluso desde los primeros siglos, por esta misma razón me cuestioné a cerca del porqué el cristianismo no tiene su propio "Reddit" en el cual pudieran usar para edificación mutua, este proyecto va orientado exclusivamente para la comunión entre hermanos incluyendo a personas inconversas. Esta propuesta que planteo construye un ecosistema monolito progresivo enfocado en hilos, recursos de estudio bíblico, cuaderno virtual, gaming y colaboración. FraterChrist propone reunir estas actividades en una plataforma OpenSource para la colaboración y crecimiento, adoptando la filosofia de la programación modular para una mejor calidad del producto.
 
 ### Módulos previstos
 
 - **Feed:** publicaciones y conversaciones por hilos.
-- **Zona doctrinal:** preguntas y respuestas, plantillas de bosquejos y recursos.
 - **Mesa:** espacios colaborativos para devocionales, estudios bíblicos, ideas, programación y videojuegos.
+- **Zona doctrinal:** preguntas y respuestas, plantillas de bosquejos y recursos.
 - **Kit:** Biblia, cuaderno personal y herramientas complementarias.
 - **Notificaciones:** correos de edificación y newsletters con suscripción voluntaria.
+  
+  Donde **Feed** será la prioridad inicial para ver mejor la trazabilidad del proyecto.
 
-Estos módulos son la visión del producto, no funcionalidades ya disponibles. Se implementarán según la hoja de ruta y las evidencias de cada etapa.
+Nota. Estos módulos son solo la visión del producto, se implementarán según la hoja de ruta y las evidencias de cada etapa.
 
 ## Competencias y evidencias
 
