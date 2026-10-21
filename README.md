@@ -1,6 +1,8 @@
 # FraterChrist
 
-**Red social cristiana de código abierto para la comunión y edificación entre hermanos, ideada para el aprendizaje bíblico y la colaboración para la gran comisión [**Mateo 18:16-20**](https://www.bible.com/es/bible/compare/MAT.28.16-20)**
+**Red social cristiana de código abierto para la comunión y edificación entre hermanos, ideada para el aprendizaje bíblico y la colaboración para la gran comisión:
+
+> Marcos 16:15 Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura.
 
 FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad cristiana en un mismo lugar. Es un proyecto personal de aprendizaje; está en desarrollo y todavía no es una aplicación funcional.
 
