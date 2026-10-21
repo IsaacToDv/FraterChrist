@@ -4,9 +4,9 @@
 
 FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad cristiana en un mismo lugar. Es un proyecto personal de aprendizaje; está en desarrollo y todavía no es una aplicación funcional.
 
-## La idea
+## Módulos
 
-- **Feed:** publicaciones y conversaciones por hilos. Será la primera prioridad.
+- **Feed:** publicaciones y conversaciones por hilos.
 - **Zona doctrinal:** preguntas, respuestas, bosquejos y recursos.
 - **Mesa:** devocionales, estudios bíblicos, ideas, programación y videojuegos.
 - **Kit:** Biblia, cuaderno y herramientas.
@@ -14,7 +14,8 @@ FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad c
 
 ## Primer objetivo: un MVP pequeño
 
-El primer prototipo estará en `MVP/` cuando comience su implementación. Empezará por el Feed y servirá para demostrar conocimientos de **Python, TypeScript, APIs REST, SQL y PostgreSQL** mediante una funcionalidad real, pruebas y documentación.
+El primer prototipo estará en `MVP/` cuando comience su implementación. Empezará por el [**Feed**](#Módulos)
+y servirá para demostrar conocimientos de **Python, TypeScript, APIs REST, SQL y PostgreSQL** mediante una funcionalidad real, pruebas y documentación.
 
 **Estado actual:** documentación preparada. El directorio `MVP/` y la aplicación aún no existen en la rama `main`.
 
@@ -37,8 +38,8 @@ Este stack permite tener una API clara, una interfaz sencilla y una base de dato
 - Validación de datos y permisos en el backend.
 - Pruebas para los casos importantes y los errores.
 - Feed paginado y consultas SQL revisadas; los índices se añadirán cuando los patrones de consulta los justifiquen.
-- Secretos fuera del repositorio.
-- Sin cachés, colas ni servicios adicionales hasta que exista una necesidad real.
+- Secretos fuera del repositorio en .gitignore.
+- Sin cachés, colas ni servicios adicionales hasta que se valide el MVP o se manifieste una necesidad viable.
 
 ## Aprendizaje y documentación
 
@@ -50,7 +51,7 @@ Este stack permite tener una API clara, una interfaz sencilla y una base de dato
 - [Uso responsable de IA](docs/USO-RESPONSABLE-DE-IA.md)
 - [Cómo contribuir](CONTRIBUTING.md)
 
-Cada etapa debe dejar una evidencia que se pueda revisar y ejecutar. Diferenciaré lo planificado de lo implementado; no marcaré una competencia como demostrada sin pruebas o una demostración reproducible.
+Cada etapa terminada debe dejar una evidencia que se pueda revisar y ejecutar.
 
 ## Licencia
 
