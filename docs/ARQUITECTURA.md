@@ -1,43 +1,53 @@
-# Arquitectura inicial de FraterChrist
+# Arquitectura y stack de FraterChrist
 
-**Estado:** propuesta que debe contrastarse con la primera implementación.
+**Estado:** propuesta para el MVP. Se ajustará cuando haya código y mediciones reales.
 
-## Estilo
-Monolito modular con diseño componible: una aplicación desplegable, dividida en módulos con responsabilidades claras e interfaces explícitas. Aquí «Composable Architecture» es un principio de diseño modular, no la biblioteca TCA de Swift/Apple.
+## Decisión principal
 
-## Stack propuesto
-- Python 3.12+ (versión fijada tras validar compatibilidad)
-- FastAPI y Pydantic para API REST y validación
-- PostgreSQL
-- SQLAlchemy 2 y Alembic
-- pytest y Ruff
-- Docker Compose
-- GitHub Actions para CI
+Empezar con un **monolito modular**: una API y una aplicación web, con responsabilidades separadas dentro de un mismo proyecto. No usar microservicios ni añadir herramientas sin una necesidad concreta.
 
-No se añadirá frontend completo antes de probar un caso de uso backend.
+## Stack del MVP
 
-## Responsabilidades
-1. **API/routers:** HTTP, códigos de estado y esquemas.
-2. **Aplicación/casos de uso:** coordinar operaciones.
-3. **Dominio:** reglas de negocio comprobables sin HTTP ni base de datos.
-4. **Repositorios:** consultas, persistencia y transacciones.
-5. **Infraestructura:** configuración, conexiones y adaptadores.
+| Área | Tecnología | Motivo |
+|---|---|---|
+| Backend | Python + FastAPI | API REST clara, validación y documentación automática. |
+| Base de datos | PostgreSQL | Datos relacionales, restricciones e integridad. |
+| Persistencia | SQLAlchemy | Facilita consultas sin ocultar el modelo SQL. |
+| Migraciones | Alembic | Cambios de esquema versionados y reproducibles. |
+| Frontend | React + TypeScript + Vite | Interfaz web tipada y desarrollo sencillo. |
+| Pruebas backend | pytest | Pruebas unitarias y de integración. |
+| Pruebas frontend | Vitest | Pruebas de la lógica de interfaz. |
+| Calidad | Ruff | Formato y análisis estático de Python. |
+| Entorno local | Docker Compose | Levantar PostgreSQL de forma reproducible. |
+| Automatización | GitHub Actions | Ejecutar pruebas y verificaciones en cada cambio. |
 
-Estas capas son una guía, no una obligación de crear clases para cada operación.
+Se fijarán versiones compatibles en los archivos de dependencias al implementar el MVP. No se añadirá una librería de estado, un sistema de caché, una cola de tareas ni una arquitectura de microservicios sin justificar su necesidad.
 
-## Módulos previstos
-- `identity`: cuentas, perfiles y preferencias.
-- `feed`: publicaciones y respuestas.
-- `doctrine`: preguntas, bosquejos y recursos.
-- `mesa`: espacios y membresías.
-- `kit`: notas privadas y herramientas bíblicas.
-- `notifications`: avisos y correo voluntario.
-- `moderation`: reportes y bloqueos.
+## Organización
 
-Crear módulos cuando una etapa los necesite; no mantener directorios vacíos para simular progreso.
+- **Frontend:** páginas y componentes de interfaz.
+- **API:** rutas HTTP, validación y respuestas.
+- **Aplicación:** operaciones del usuario, por ejemplo crear una publicación.
+- **Dominio:** reglas del feed y sus conversaciones.
+- **Persistencia:** consultas y transacciones de PostgreSQL.
 
-## Seguridad y mantenibilidad
-Validar entradas; comprobar autenticación y autorización en servidor; mantener secretos fuera de Git; usar restricciones relacionales y consultas parametrizadas; definir transacciones; probar fallos y accesos denegados; evitar microservicios, colas o cachés sin una necesidad medible.
+Esta separación es una guía práctica, no una obligación de crear capas o clases para cada función.
+
+## Alcance inicial
+
+El primer caso de uso será el Feed: crear y consultar publicaciones. Después se añadirán respuestas en hilos, validación de datos, paginación y permisos según el progreso.
+
+## Calidad y rendimiento
+
+- Medir antes de optimizar prematuramente.
+- Paginar el Feed y limitar el tamaño de las peticiones.
+- Diseñar consultas simples y revisar su plan cuando sea necesario.
+- Añadir índices según consultas reales y restricciones, no por anticipación.
+- Usar restricciones y transacciones de PostgreSQL para mantener datos consistentes.
+- Probar casos correctos, entradas inválidas y accesos no autorizados.
+- Mantener secretos fuera de Git.
+- Automatizar pruebas y comprobaciones en CI.
 
 ## Decisiones pendientes
-Autenticación, visibilidad, moderación, fuente/licencia bíblica, archivos, búsqueda/paginación, correo y despliegue. Registrar decisiones importantes como ADR.
+
+Autenticación, reglas de visibilidad, moderación, fuente bíblica y licencia, alojamiento y correo. Se decidirán cuando el alcance del MVP lo requiera.
