@@ -2,7 +2,8 @@
 
 **Red social cristiana de código abierto para la comunión y edificación entre hermanos, ideada para el aprendizaje bíblico y la colaboración para la gran comisión:
 
-> Marcos 16:15 Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura.
+> Marcos 16:15
+Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura.
 
 FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad cristiana en un mismo lugar. Es un proyecto personal de aprendizaje; está en desarrollo y todavía no es una aplicación funcional.
 
@@ -11,7 +12,7 @@ FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad c
 - **Feed:** publicaciones y conversaciones por hilos.
 - **Zona doctrinal:** preguntas y respuestas, debates, bosquejos y recursos.
 - **Mesa:** devocionales, estudios bíblicos, ideas, programación y videojuegos.
-- **Kit:** Biblia, cuaderno y herramientas.
+- **Kit:** Biblia, cuaderno y herramientas opensource.
 - **Notificaciones:** correos de edificación y newsletters voluntarios.
 
 ## Primer objetivo: un MVP pequeño
