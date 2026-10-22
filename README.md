@@ -1,59 +1,45 @@
 # FraterChrist
 
-**Red social cristiana de código abierto para la comunión y edificación entre hermanos, ideada para el aprendizaje bíblico y la colaboración para la gran comisión:**
+**Red social cristiana de código abierto para la comunión, el aprendizaje bíblico y la colaboración entre hermanos.**
 
-> -Marcos 16:15 | Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura.
+> Marcos 16:15 — «Id por todo el mundo y predicad el evangelio a toda criatura».
 
-FraterChrist busca reunir conversaciones, recursos y proyectos de la comunidad cristiana en un mismo lugar. Es un proyecto personal de aprendizaje; está en desarrollo y todavía no es una aplicación funcional.
+FraterChrist es un proyecto personal de aprendizaje y colaboración. **Todavía está en etapa de planificación; la aplicación no es funcional.**
 
-## Módulos
+## Primer objetivo: un Feed pequeño
 
-- **Feed:** publicaciones y conversaciones por hilos.
-- **Zona doctrinal:** preguntas y respuestas, debates, bosquejos y recursos.
-- **Mesa:** devocionales, estudios bíblicos, ideas, programación y videojuegos.
-- **Kit:** Biblia, cuaderno y herramientas opensource.
-- **Notificaciones:** correos de edificación y newsletters voluntarios.
+El MVP empezará con publicaciones y respuestas en conversaciones. La meta es construirlo por incrementos y demostrar cada avance con código, pruebas y documentación reproducible.
 
-## Primer objetivo: un MVP pequeño
+## Stack previsto
 
-El primer prototipo estará en `MVP/` cuando comience su implementación. Empezará por el [**Feed**](#Módulos)
-y servirá para demostrar conocimientos de **Python, TypeScript, APIs REST, SQL y PostgreSQL** mediante una funcionalidad real, pruebas y documentación.
-
-**Estado actual:** documentación preparada. El directorio `MVP/` y la aplicación aún no existen en la rama `main`.
-
-## Stack elegido para el MVP
-
-| Parte | Tecnología |
+| Área | Tecnología |
 |---|---|
 | Backend y API | Python + FastAPI |
-| Base de datos | PostgreSQL |
-| Acceso a datos y migraciones | SQLAlchemy + Alembic |
-| Interfaz web | React + TypeScript + Vite |
+| Datos | PostgreSQL + SQLAlchemy + Alembic |
+| Interfaz | React + TypeScript + Vite |
 | Calidad | pytest, Ruff, Vitest y GitHub Actions |
-| Entorno local | Docker Compose para PostgreSQL |
+| Desarrollo local | Docker Compose para PostgreSQL |
 
-Este stack permite tener una API clara, una interfaz sencilla y una base de datos relacional sin dividir el proyecto en microservicios.
+La arquitectura inicial será un monolito modular. Se evitarán servicios y dependencias adicionales hasta que exista una necesidad real.
 
-## Prioridades técnicas
+## Cómo avanzar
 
-- Código fácil de leer y modificar.
-- Validación de datos y permisos en el backend.
-- Pruebas para los casos importantes y los errores.
-- Feed paginado y consultas SQL revisadas; los índices se añadirán cuando los patrones de consulta los justifiquen.
-- Secretos fuera del repositorio en .gitignore.
-- Sin cachés, colas ni servicios adicionales hasta que se valide el MVP o se manifieste una necesidad viable.
+El trabajo se organiza en [GitHub Issues](https://github.com/IsaacToDv/FraterChrist/issues): cada reto tiene un objetivo, criterios de aceptación y evidencia esperada. Trabaja en un Issue principal a la vez; revisa las dependencias y enlaza el Issue con su Pull Request.
 
-## Aprendizaje y documentación
-
-- [Plan de aprendizaje](docs/PLAN-APRENDIZAJE.md)
+- [Plan de aprendizaje e Issues](docs/PLAN-APRENDIZAJE.md)
 - [Arquitectura y stack](docs/ARQUITECTURA.md)
 - [Requisitos](docs/REQUISITOS.md)
-- [Competencias y evidencias](docs/MAPA-CV-EVIDENCIAS.md)
+- [Mapa de competencias y evidencias](docs/MAPA-CV-EVIDENCIAS.md)
 - [Guía para la demo](docs/GUIA-DEMO.md)
 - [Uso responsable de IA](docs/USO-RESPONSABLE-DE-IA.md)
 - [Cómo contribuir](CONTRIBUTING.md)
 
-Cada etapa terminada debe dejar una evidencia que se pueda revisar y ejecutar.
+## Estado actual
+
+- [ ] MVP ejecutable
+- [x] Documentación inicial y backlog de aprendizaje preparados
+
+Las funciones descritas en la documentación son objetivos, no funciones ya implementadas.
 
 ## Licencia
 
