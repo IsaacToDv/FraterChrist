@@ -218,3 +218,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Reglas específicas de FraterChrist
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql.gz
+node_modules/
+dist/
+coverage/
