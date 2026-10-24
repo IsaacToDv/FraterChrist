@@ -19,7 +19,7 @@
   <a href="https://github.com/IsaacToDv/FraterChrist/issues/new">Propón una mejora</a>
 </p>
 
-**Estado: en planificación. La aplicación todavía no es ejecutable.** Este repositorio es un proyecto personal de aprendizaje de desarrollo de software y análisis de datos; no es un servicio disponible para usuarios.
+**Estado: en planificación. La aplicación todavía no es ejecutable.** FraterChrist es una propuesta de proyecto de código abierto; las funciones descritas a continuación forman parte del plan de desarrollo.
 
 <p align="center"><strong>Stack previsto · Fase 1: backend y datos</strong></p>
 <p align="center">
@@ -53,99 +53,69 @@
 
 ---
 
-## Objetivo del proyecto
+## ¿Qué es FraterChrist?
 
-Construir un feed pequeño donde usuarios registrados puedan publicar y responder en conversaciones. El proyecto se desarrollará por etapas, priorizando fundamentos, pruebas y resultados reproducibles en lugar de acumular módulos.
+FraterChrist es una propuesta de red social cristiana pensada para compartir publicaciones y conversar en comunidad. El objetivo es crear un espacio digital sencillo que facilite la interacción entre personas y que pueda desarrollarse de forma abierta y colaborativa.
 
-## Alcance en dos fases
+## Funcionalidades previstas
 
-### Fase 1 — Backend, PostgreSQL y análisis reproducible
+- **Publicaciones y conversaciones:** crear publicaciones y responder dentro de hilos.
+- **Cuentas de usuario:** registro e inicio de sesión.
+- **Feed:** consultar publicaciones en orden cronológico.
+- **Privacidad y seguridad:** controles de acceso y manejo responsable de los datos.
+- **Análisis de datos:** explorar actividad con datos de prueba sintéticos, sin utilizar información personal real.
 
-La prioridad es construir y entender una base funcional antes de crear una interfaz web.
+Estas funcionalidades todavía están en planificación y no están disponibles para uso público.
 
-- Fundamentos de Python aplicados a una publicación: reglas de validación, modelo y pruebas.
-- PostgreSQL, SQL, relaciones, índices y migraciones con Alembic.
-- API REST con FastAPI y validación con Pydantic.
-- MVP de backend: registro e inicio de sesión, crear y consultar publicaciones, responder en un hilo y permisos mínimos.
-- Pruebas con pytest, formato y análisis estático con Ruff, e integración continua con GitHub Actions.
-- Datos sintéticos para consultas SQL y un análisis acotado con pandas. No se usarán datos personales reales.
-
-**Resultado para cerrar la fase:** una API documentada y probada, base de datos que pueda crearse desde cero con migraciones, feed de publicaciones y respuestas, pruebas automáticas y un análisis reproducible que responda una pregunta concreta.
-
-### Fase 2 — Interfaz web y revisión de seguridad
-
-Comenzará cuando la API y las pruebas de la primera fase sean reproducibles.
-
-- Prototipo y luego interfaz mínima con React, TypeScript y Vite.
-- Conexión de la interfaz a la API para leer publicaciones, crear una publicación y responder.
-- Pruebas de interfaz con Vitest para los flujos esenciales.
-- Revisión práctica de controles básicos: validación de entradas, permisos, gestión de secretos, errores y logs. La autenticación básica se desarrolla desde la fase 1; esta fase no la pospone.
-
-**Resultado para cerrar la fase:** una demo pequeña que otra persona pueda ejecutar con la guía del repositorio, con pruebas y una revisión de seguridad documentada.
-
-## Tecnologías previstas
-
-- **Backend:** Python, FastAPI y Pydantic.
-- **Datos:** PostgreSQL, SQL, SQLAlchemy y Alembic.
-- **Calidad:** pytest, Ruff y GitHub Actions.
-- **Entorno reproducible:** Docker Compose.
-- **Análisis:** SQL, datos sintéticos con Faker y pandas; un notebook o informe breve antes de considerar un dashboard.
-- **Frontend, fase 2:** React, TypeScript, Vite y Vitest.
-
-Estas son tecnologías previstas, no componentes ya implementados. Se podrán revisar si una decisión técnica dificulta el aprendizaje o no aporta al MVP.
-
-## Hoja de ruta
-
-Las casillas describen el estado del trabajo del proyecto, no el avance de cursos externos. Cerrar una tarea exige código o documentación verificable y una explicación que el autor pueda dar sin depender de la IA.
-
-### Preparación
-
-- [x] Documentación inicial y planificación del backlog en Issues, según el plan inicial del proyecto.
-- [x] Incorporar el roadmap visual original en `docs/roadmap-fraterchrist-v5.pdf`.
-- [ ] Revisar las tareas del backlog contra este roadmap y mantener un único alcance vigente.
+## Roadmap
 
 ### Fase 1 — Backend y datos
 
-- [ ] **Nodo 1 · Requisitos y Python base:** definir reglas de una publicación y validarla desde consola. Referencias del roadmap: Issues #1 y #3.
-- [ ] **Nodo 2 · Pruebas del modelo:** escribir pruebas pytest para casos válidos e inválidos; explicar el código y los resultados.
-- [ ] **Nodo 3 · SQL y PostgreSQL:** diseñar el modelo de usuarios y publicaciones/respuestas; crear migraciones reproducibles. Referencia: Issue #6.
-- [ ] **Nodo 4 · API REST:** preparar FastAPI con `/health`, esquemas Pydantic y documentación OpenAPI. Referencia: Issue #2.
-- [ ] **Nodo 5 · Backend del feed:** registro, inicio de sesión, permisos mínimos, crear/listar publicaciones y responder en hilos. Referencias: Issues #5, #7, #8 y #10.
-- [ ] **Nodo 6 · Calidad y datos:** ejecutar pruebas y Ruff en GitHub Actions; documentar una demo; analizar actividad con datos sintéticos usando SQL y pandas. Referencias: Issues #11 y #12; el análisis se concretará en un Issue cuando corresponda.
-- [ ] Verificar que las migraciones crean la base desde cero y que todas las pruebas se pueden repetir siguiendo el README.
+Preparar la base del proyecto: API REST, base de datos PostgreSQL, cuentas de usuario, publicaciones y respuestas. También se prevén pruebas automatizadas, documentación de la API y un análisis básico con datos sintéticos.
 
-### Fase 2 — Interfaz y seguridad aplicada
+### Fase 2 — Interfaz web
 
-- [ ] Prototipar el flujo mínimo del feed. Referencia prevista en el roadmap: Issue #4.
-- [ ] Conectar React + TypeScript con la API y probar los flujos principales. Referencia prevista: Issue #9.
-- [ ] Documentar una revisión de seguridad y la gestión de secretos; corregir los hallazgos dentro del alcance del MVP.
-- [ ] Publicar instrucciones de demo que otra persona pueda seguir desde un entorno limpio.
+Crear una interfaz web con React y TypeScript, conectarla con la API y revisar los controles de seguridad de los flujos principales.
 
-> Los números de Issue son referencias del roadmap entregado por el autor; este paquete ZIP no consulta ni modifica GitHub. Antes de cerrar tareas, verifica en el repositorio que los Issues existan y que sus descripciones sigan correspondiendo al alcance.
+El alcance puede evolucionar conforme avance el desarrollo. Consulta las tareas abiertas para ver las propuestas y el trabajo pendiente.
 
-## Criterios para considerar una tarea terminada
+## Cómo colaborar
 
-1. Cumple un criterio de aceptación observable.
-2. Incluye pruebas cuando el comportamiento lo requiere y las pruebas pasan.
-3. El autor puede explicar la solución y sus decisiones sin depender de una respuesta generada por IA.
-4. Los pasos para reproducir el resultado están documentados.
-5. No incluye datos personales reales, contraseñas ni tokens.
+¡Las contribuciones son bienvenidas! Puedes ayudar a mejorar la documentación, informar errores, proponer funcionalidades o contribuir con código.
+
+1. **Explora el proyecto:** revisa las [tareas abiertas](https://github.com/IsaacToDv/FraterChrist/issues) y comprueba si tu propuesta ya existe.
+2. **Crea un fork:** desde GitHub, utiliza el botón **Fork** para crear una copia del repositorio en tu cuenta.
+3. **Clona tu fork y crea una rama:** sustituye `TU-USUARIO` por tu nombre de usuario de GitHub.
+
+~~~bash
+git clone https://github.com/TU-USUARIO/FraterChrist.git
+cd FraterChrist
+git switch -c docs/mi-contribucion
+~~~
+
+4. **Realiza tus cambios** y guárdalos en un commit.
+
+~~~bash
+git add .
+git commit -m "docs: describe el cambio"
+git push -u origin docs/mi-contribucion
+~~~
+
+5. **Abre un Pull Request:** entra a tu fork en GitHub y selecciona **Compare & pull request** para proponer los cambios a `IsaacToDv/FraterChrist`, rama `main`. Explica qué cambiaste y por qué.
+
+Antes de contribuir, consulta las [pautas de colaboración](CONTRIBUTING.md). Para sugerencias generales, también puedes [abrir una propuesta](https://github.com/IsaacToDv/FraterChrist/issues/new).
 
 ## Documentación
 
-- [Plan de aprendizaje](docs/PLAN-APRENDIZAJE.md)
 - [Arquitectura propuesta](docs/ARQUITECTURA.md)
-- [Requisitos del MVP](docs/REQUISITOS.md)
+- [Requisitos del proyecto](docs/REQUISITOS.md)
+- [Plan de aprendizaje](docs/PLAN-APRENDIZAJE.md)
 - [Plan de análisis de datos](docs/ANALISIS-DATOS.md)
 - [Declaración de uso de IA](docs/USO-DE-IA.md)
-- [Roadmap visual original (PDF)](docs/roadmap-fraterchrist-v5.pdf)
-- [Contribución](CONTRIBUTING.md)
-- [Seguridad](SECURITY.md)
+- [Pautas de contribución](CONTRIBUTING.md)
+- [Información de seguridad](SECURITY.md)
 
-## Datos y privacidad
+## Licencia
 
-Todo dato de ejemplo, prueba o análisis debe ser sintético. No cargar información personal, contraseñas reales, correos de otras personas ni registros extraídos de servicios reales. El proyecto no está listo para producción.
+FraterChrist se distribuye bajo la licencia **GNU GPL v3.0**. Consulta el archivo [LICENSE](LICENSE) para conocer sus términos.
 
-## Cómo contribuir y licencia
-
-Las propuestas deben ser pequeñas, explicar el problema, indicar criterios de aceptación y aportar evidencia verificable. Consulta [CONTRIBUTING.md](CONTRIBUTING.md). El proyecto se ofrece bajo la licencia **GNU GPL v3.0**; ver [LICENSE](LICENSE).
