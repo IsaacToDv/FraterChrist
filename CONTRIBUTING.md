@@ -1,32 +1,25 @@
 # Cómo contribuir
 
-FraterChrist es un proyecto de aprendizaje en planificación. Las contribuciones deben conservar el alcance pequeño del MVP y aportar evidencia de calidad.
+Las contribuciones a FraterChrist son bienvenidas. Durante el MVP, se priorizan cambios pequeños relacionados con el Feed, la privacidad y la experiencia web básica.
 
-## Antes de proponer un cambio
+## Empezar
 
-- Busca si el problema ya está documentado en un Issue.
-- Describe el problema y por qué importa para el MVP.
-- Define criterios de aceptación comprobables.
-- Indica qué queda fuera del alcance para evitar que una tarea crezca sin control.
+1. Revisa las [Issues abiertas](https://github.com/IsaacToDv/FraterChrist/issues) antes de iniciar un cambio.
+2. Para cambios importantes, abre una Issue para acordar el alcance.
+3. Haz un Fork, crea una rama y envía un Pull Request hacia `main`.
+4. Describe qué problema resuelve el cambio y cómo se puede comprobar.
 
-## Para cambios de código
+## Código y documentación
 
-- Prefiere cambios pequeños y fáciles de explicar.
-- Añade o ajusta pruebas cuando cambia un comportamiento.
-- Ejecuta las comprobaciones documentadas y registra sus resultados reales.
-- Actualiza la documentación si cambian comandos, requisitos o decisiones.
-- No marques una tarea como finalizada si no puedes explicar el cambio ni reproducir su resultado.
+- Mantén los cambios centrados y coherentes con la arquitectura documentada.
+- Añade o actualiza pruebas cuando cambie el comportamiento.
+- Actualiza la documentación si cambia el uso o la configuración.
+- No marques como disponible una funcionalidad que siga en planificación.
 
-## Datos y seguridad
+## Seguridad y privacidad
 
-- Usa únicamente datos sintéticos.
-- No incluyas contraseñas, tokens, claves de API, archivos `.env` reales ni datos personales.
-- No introduzcas dependencias o servicios externos sin explicar por qué son necesarios para el MVP.
+- No subas claves, tokens, contraseñas, archivos `.env` reales ni datos personales.
+- Usa datos sintéticos para pruebas y ejemplos.
+- Las reglas de visibilidad deben comprobarse en la API y en el acceso a los archivos, no solo en la interfaz.
 
-## Estilo y comunicación
-
-El español es el idioma inicial de la documentación. La práctica de documentación técnica en inglés podrá hacerse más adelante, sin bloquear el aprendizaje principal. Los mensajes deben ser respetuosos, específicos y centrados en el trabajo técnico.
-
-## Estado del proyecto
-
-La aplicación aún no es ejecutable. No describas como funcionales las rutas, pantallas o tareas que todavía están en planificación.
+Consulta [SECURITY.md](SECURITY.md) para las pautas de seguridad.
