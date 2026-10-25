@@ -23,7 +23,7 @@ Las aplicaciones comparten PostgreSQL en el MVP. Los permisos de lectura deben c
 | Modelo | Campos principales | Responsabilidad |
 |---|---|---|
 | `User` | `id`, `username`, `email`, `password`, `date_joined` | Cuenta y autenticación. Django almacena el hash en `password`. |
-| `Post` | `id`, `author`, `content`, `visibility`, `parent_post`, `created_at`, `updated_at` | Publicación raíz o respuesta directa a una publicación raíz. |
+| `Post` | `id`, `author`, `content`, `visibility`, `parent_post` (opcional), `created_at`, `updated_at` | Publicación raíz o respuesta directa a una publicación raíz. |
 | `MediaFile` | `id`, `post`, `file`, `file_type`, `content_type`, `file_size`, `created_at` | Referencia a un archivo multimedia y sus metadatos. |
 
 Los nombres son propuestas para los modelos Django, no código ya implementado. El modelo de usuario debe definirse antes de crear la primera migración. Los archivos binarios no se guardarán en PostgreSQL; el campo `file` apunta al almacenamiento.
