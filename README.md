@@ -53,10 +53,6 @@
 
 ---
 
-## Acerca de
-
-FraterChrist es un proyecto de código abierto que propone una red social cristiana para compartir publicaciones y conversar en comunidad. Su objetivo es ofrecer un espacio digital sencillo para la interacción entre personas, construido de forma abierta y colaborativa. El proyecto está en planificación y busca aportes en documentación, diseño, desarrollo y análisis de datos.
-
 ## Funcionalidades previstas
 
 - **Publicaciones y conversaciones:** crear publicaciones y responder dentro de hilos.
