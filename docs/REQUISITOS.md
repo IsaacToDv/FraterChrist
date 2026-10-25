@@ -4,42 +4,42 @@
 
 ## Objetivo
 
-Construir un Feed web donde las personas puedan leer publicaciones visibles, crear publicaciones de texto, fotos o videos y responder en hilos, con reglas de privacidad aplicadas en el servidor.
+Crear un Feed web donde se puedan leer publicaciones visibles, publicar texto, fotos o videos y responder en hilos, aplicando los permisos en el servidor.
 
 ## Funcionalidades incluidas
 
 1. Registro, inicio y cierre de sesión.
-2. Lectura pública del Feed sin necesidad de una cuenta.
-3. Publicación de texto, fotos y videos.
+2. Lectura de publicaciones públicas sin cuenta.
+3. Publicaciones de texto, fotos y videos.
 4. Respuestas dentro de un hilo.
-5. Selección de visibilidad al crear una publicación.
-6. Persistencia en PostgreSQL y almacenamiento separado para los archivos.
-7. Interfaz web conectada a una API REST.
-8. Pruebas automatizadas y una guía reproducible de instalación.
+5. Selección de visibilidad por publicación.
+6. Persistencia en PostgreSQL y almacenamiento independiente de archivos.
+7. Interfaz React conectada a una API REST.
+8. Pruebas automatizadas y guía para ejecutar el MVP.
 
-## Niveles de visibilidad
+## Visibilidad
 
-- **Pública:** cualquiera puede verla.
-- **Limitada a miembros:** solo usuarios autenticados pueden verla.
-- **Privada:** solo la ve su autor.
+- **Pública:** cualquiera puede leerla.
+- **Limitada a miembros:** solo usuarios autenticados pueden leerla.
+- **Privada:** solo el autor puede leerla.
 
-Para el MVP, las respuestas y los medios heredan el nivel de acceso de la publicación raíz. El frontend no es responsable de hacer cumplir estos permisos: la API debe rechazar lecturas no autorizadas incluso si se solicita directamente la URL del recurso.
+En la primera versión, las respuestas y los archivos adjuntos heredan la visibilidad de la publicación raíz. La API es la autoridad para decidir el acceso; ocultar contenido en React no es un control de seguridad.
 
-La visibilidad limitada a seguidores, grupos específicos o listas de invitados no forma parte del MVP porque requiere relaciones y controles adicionales.
+La visibilidad limitada a seguidores, grupos específicos o listas de invitados no forma parte del MVP.
 
-## Criterios de aceptación del MVP
+## Criterios de aceptación
 
-- Un visitante sin cuenta puede leer publicaciones públicas, pero no las limitadas o privadas.
-- Un usuario autenticado puede crear una publicación y elegir su visibilidad.
+- Un visitante puede leer publicaciones públicas, pero no las limitadas o privadas.
+- Una persona autenticada puede crear publicaciones y elegir su visibilidad.
 - Solo el autor puede leer una publicación privada.
-- Las respuestas pertenecen al hilo correcto y respetan su visibilidad.
-- Fotos y videos se pueden subir y mostrar; sus archivos no son accesibles saltándose la autorización.
-- Las entradas y archivos no válidos se rechazan de forma controlada.
-- Las pruebas automatizadas cubren autenticación y permisos.
-- El proyecto puede ejecutarse siguiendo las instrucciones documentadas.
+- Las respuestas se muestran dentro del hilo correcto y respetan su visibilidad.
+- Las fotos y los videos se pueden subir y mostrar sin permitir acceso no autorizado al archivo.
+- Los datos y archivos inválidos se rechazan de forma controlada.
+- Las pruebas cubren la autenticación y los permisos.
+- Otra persona puede levantar el proyecto siguiendo la documentación.
 
-## Fuera de alcance
+## Fuera del MVP
 
 Perfiles avanzados, seguidores, likes, mensajes directos, búsqueda avanzada, recomendaciones, mesas de oración o estudio, videollamadas, pizarras, juegos educativos, dashboards y despliegue de producción.
 
-Consulta las [Issues del MVP](https://github.com/IsaacToDv/FraterChrist/issues) para ver el orden de implementación.
+El orden de trabajo se mantiene en las [Issues #20–#27](https://github.com/IsaacToDv/FraterChrist/issues).
