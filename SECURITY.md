@@ -1,16 +1,17 @@
 # Seguridad
 
-FraterChrist está en planificación y **no debe desplegarse como servicio de producción** en su estado actual.
+FraterChrist está en planificación y todavía no debe utilizarse como servicio de producción.
 
-## Reglas actuales
+## Reglas del proyecto
 
-- No subir claves, tokens, contraseñas ni archivos `.env`.
-- Usar únicamente datos sintéticos en pruebas, ejemplos y análisis.
-- No usar cuentas o información de personas reales para las demostraciones.
-- No publicar una demo como servicio público hasta revisar autenticación, autorización, validación, configuración y logs.
+- No subir contraseñas, tokens, claves de API ni archivos `.env` reales.
+- Usar datos sintéticos en pruebas y demostraciones.
+- Aplicar la visibilidad de las publicaciones en la API y al servir archivos multimedia.
+- No confiar en que el frontend o una URL difícil de adivinar protejan contenido privado.
+- Antes de cualquier despliegue, revisar autenticación, autorización, validación de archivos, manejo de errores y configuración.
 
-## Informar un problema
+## Informar de una vulnerabilidad
 
-Si identificas una vulnerabilidad en el repositorio, evita publicar detalles explotables antes de que se pueda evaluar. Usa una vía privada de contacto disponible en GitHub (por ejemplo, una notificación privada de seguridad si el repositorio la tiene habilitada). No incluyas secretos reales en un Issue.
+Evita publicar detalles explotables o secretos en Issues públicas. Utiliza una opción privada de contacto disponible en GitHub si está habilitada en el repositorio. No incluyas datos personales en un informe.
 
-La existencia de este archivo no significa que se haya realizado una auditoría de seguridad.
+Este documento no indica que se haya realizado una auditoría de seguridad.
