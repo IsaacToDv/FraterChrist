@@ -43,79 +43,77 @@
 
 ## Acerca de
 
-FraterChrist es una propuesta de red social cristiana para compartir publicaciones y conversar en comunidad. Se desarrollará de forma abierta, priorizando una experiencia sencilla, privacidad por diseño y una arquitectura que permita añadir nuevas experiencias sin rehacer el Feed.
+FraterChrist es una red social cristiana de código abierto para compartir publicaciones y conversar en comunidad. El MVP se centra en el Feed; los perfiles avanzados, las mesas y las salas interactivas se incorporarán más adelante.
 
 ## MVP: el Feed
 
-La primera versión se centrará en **publicaciones de texto, fotos y videos**, hilos de respuestas, cuentas de usuario y control de visibilidad.
+La primera versión incluirá publicaciones de texto, fotos y videos, hilos de respuestas, cuentas y tres niveles de visibilidad.
 
-| Visibilidad | Quién puede ver la publicación |
+| Visibilidad | Quién puede leer |
 |---|---|
 | **Pública** | Cualquier visitante, con o sin cuenta. |
-| **Limitada a miembros** | Solo usuarios con sesión iniciada. |
+| **Limitada a miembros** | Usuarios con sesión iniciada. |
 | **Privada** | Solo el autor. |
 
-En el MVP, las respuestas y los archivos adjuntos siguen la visibilidad de la publicación raíz. Las publicaciones limitadas no serán visibles para visitantes anónimos. La privacidad se valida en la API, no solo ocultando contenido en la interfaz.
+Las respuestas y los archivos adjuntos heredan la visibilidad de la publicación raíz. La API comprobará los permisos en cada lectura; ocultar contenido en la interfaz no es suficiente.
 
 ## Arquitectura
 
-El MVP usará un **monolito modular**: menos servicios que desplegar, una base de datos principal y límites claros entre módulos. Los archivos multimedia se guardarán fuera de PostgreSQL; la base de datos conservará sus metadatos. En desarrollo, el almacenamiento será privado y local; más adelante podrá cambiarse por uno compatible con S3.
+El MVP usa un **monolito modular**: una aplicación Django con módulos separados, una API REST y PostgreSQL. Los archivos multimedia se almacenan fuera de la base de datos. En desarrollo, se usará almacenamiento local privado; se podrá sustituir por almacenamiento compatible con S3 más adelante.
 
-### Diagrama de componentes
+### Componentes
 
 ~~~mermaid
 flowchart TB
-    V["Visitante / miembro"]
-    UI["Web: React + TypeScript + Vite"]
-    API["API REST: Django REST Framework"]
-    AUTH["Cuentas y permisos"]
-    FEED["Feed: publicaciones e hilos"]
-    MEDIA["Medios: validación y acceso protegido"]
-    DB[("PostgreSQL<br/>usuarios · posts · metadatos")]
-    FS[("Almacenamiento privado<br/>fotos y videos")]
+    Visitor["Visitor or member"]
+    Web["Web client<br/>React · TypeScript · Vite"]
+    API["REST API<br/>Django REST Framework"]
+    Accounts["Accounts<br/>sign-in and user identity"]
+    Feed["Feed<br/>posts and replies"]
+    Media["Media<br/>file validation and access control"]
+    DB[("PostgreSQL<br/>users · posts · media metadata")]
+    Storage[("Private file storage<br/>photos and videos")]
 
-    V --> UI
-    UI <-->|HTTPS / JSON| API
-    API --> AUTH
-    API --> FEED
-    API --> MEDIA
-    AUTH --> DB
-    FEED --> DB
-    MEDIA --> DB
-    MEDIA --> FS
+    Visitor --> Web
+    Web <-->|HTTPS · JSON| API
+    API --> Accounts
+    API --> Feed
+    API --> Media
+    Accounts --> DB
+    Feed --> DB
+    Media --> DB
+    Media --> Storage
 ~~~
 
-### Modelo UML del dominio
+### UML class diagram
 
 ~~~mermaid
 classDiagram
     direction LR
 
     class User {
-        +UUID id
-        +string username
-        +string email
-        +string password_hash
-        +datetime created_at
+        +id: integer
+        +username: string
+        +email: string
+        +password: string
+        +date_joined: datetime
     }
 
     class Post {
-        +UUID id
-        +text content
-        +Visibility visibility
-        +datetime created_at
-        +datetime updated_at
-        +UUID author_id
-        +UUID parent_post_id
+        +id: integer
+        +content: text
+        +visibility: Visibility
+        +created_at: datetime
+        +updated_at: datetime
     }
 
-    class MediaAsset {
-        +UUID id
-        +MediaType media_type
-        +string storage_key
-        +string mime_type
-        +bigint size_bytes
-        +datetime created_at
+    class MediaFile {
+        +id: integer
+        +file: file_path
+        +file_type: FileType
+        +content_type: string
+        +file_size: integer
+        +created_at: datetime
     }
 
     class Visibility {
@@ -125,37 +123,37 @@ classDiagram
         PRIVATE
     }
 
-    class MediaType {
+    class FileType {
         <<enumeration>>
         IMAGE
         VIDEO
     }
 
-    User "1" --> "0..*" Post : publica
-    Post "0..1" --> "0..*" Post : hilo y respuestas
-    Post "1" --> "0..*" MediaAsset : adjunta
-    Post --> Visibility : nivel de acceso
-    MediaAsset --> MediaType : formato
+    User "1" --> "0..*" Post : author
+    Post "0..1" --> "0..*" Post : parent_post / replies
+    Post "1" --> "0..*" MediaFile : attached_files
+    Post --> Visibility : visibility
+    MediaFile --> FileType : file_type
 ~~~
 
-El diagrama representa el diseño previsto, no modelos implementados. Los permisos se comprobarán tanto al consultar publicaciones como al servir sus archivos.
+The UML uses the proposed Django model names and fields. `User.password` is managed by Django and stores a password hash, never the original password. `Post.parent_post` is optional: it is empty for a root post and points to the parent post for a reply. `MediaFile.file` stores a path or storage reference, not the binary data in PostgreSQL. These are planned models, not implemented code.
 
 ## Hoja de ruta del MVP
 
-El orden de trabajo se refleja en las [Issues #20–#27](https://github.com/IsaacToDv/FraterChrist/issues).
+El orden activo está en las [Issues #20–#27](https://github.com/IsaacToDv/FraterChrist/issues).
 
-1. **Base técnica** — [#20](https://github.com/IsaacToDv/FraterChrist/issues/20): Django, DRF, PostgreSQL y entorno reproducible.
-2. **Modelo y privacidad** — [#21](https://github.com/IsaacToDv/FraterChrist/issues/21) y [#22](https://github.com/IsaacToDv/FraterChrist/issues/22): usuarios, publicaciones, hilos, medios, autenticación y permisos.
-3. **Feed y multimedia** — [#23](https://github.com/IsaacToDv/FraterChrist/issues/23) y [#24](https://github.com/IsaacToDv/FraterChrist/issues/24): publicar, responder, listar y adjuntar fotos o videos.
-4. **Interfaz usable** — [#25](https://github.com/IsaacToDv/FraterChrist/issues/25): conectar la web y completar los flujos principales.
-5. **Verificación y entrega** — [#26](https://github.com/IsaacToDv/FraterChrist/issues/26) y [#27](https://github.com/IsaacToDv/FraterChrist/issues/27): pruebas de privacidad, CI y demo reproducible.
+1. **Base técnica** — [#20](https://github.com/IsaacToDv/FraterChrist/issues/20): Django, Django REST Framework y PostgreSQL.
+2. **Modelos y privacidad** — [#21](https://github.com/IsaacToDv/FraterChrist/issues/21) y [#22](https://github.com/IsaacToDv/FraterChrist/issues/22): usuarios, publicaciones, adjuntos, autenticación y permisos.
+3. **Feed y multimedia** — [#23](https://github.com/IsaacToDv/FraterChrist/issues/23) y [#24](https://github.com/IsaacToDv/FraterChrist/issues/24): listar, publicar, responder y cargar fotos o videos.
+4. **Interfaz web** — [#25](https://github.com/IsaacToDv/FraterChrist/issues/25): conectar React con la API.
+5. **Calidad y entrega** — [#26](https://github.com/IsaacToDv/FraterChrist/issues/26) y [#27](https://github.com/IsaacToDv/FraterChrist/issues/27): pruebas de privacidad, integración continua y guía de ejecución.
 
-**Fuera del MVP:** perfiles avanzados, seguidores, mesas de oración o estudio, videollamadas, pizarras, juegos educativos, recomendaciones, dashboards y despliegue de producción. Se evaluarán cuando el Feed esté funcionando.
+**Después del MVP:** perfiles avanzados, seguidores, mesas de oración o estudio, videollamadas, pizarras y juegos educativos.
 
 ## Cómo colaborar
 
-1. Abre una [Issue](https://github.com/IsaacToDv/FraterChrist/issues) o elige una tarea existente.
-2. Haz **Fork** del repositorio y clónalo, reemplazando `TU-USUARIO` por tu usuario de GitHub:
+1. Elige una [Issue abierta](https://github.com/IsaacToDv/FraterChrist/issues) o crea una propuesta.
+2. Haz un **Fork** y clónalo. Sustituye `TU-USUARIO` por tu usuario de GitHub:
 
 ~~~bash
 git clone https://github.com/TU-USUARIO/FraterChrist.git
@@ -163,7 +161,7 @@ cd FraterChrist
 git switch -c feat/mi-cambio
 ~~~
 
-3. Haz tus cambios y súbelos:
+3. Haz los cambios y súbelos:
 
 ~~~bash
 git add .
@@ -173,12 +171,12 @@ git push -u origin feat/mi-cambio
 
 4. Abre un Pull Request desde tu fork hacia la rama `main` de FraterChrist.
 
-Consulta las [pautas de contribución](CONTRIBUTING.md) antes de enviar cambios.
+Lee las [pautas de contribución](CONTRIBUTING.md) antes de enviar cambios.
 
 ## Documentación
 
-- [Arquitectura propuesta](docs/ARQUITECTURA.md)
-- [Requisitos](docs/REQUISITOS.md)
+- [Arquitectura del MVP](docs/ARQUITECTURA.md)
+- [Requisitos del MVP](docs/REQUISITOS.md)
 - [Seguridad](SECURITY.md)
 
 ## Licencia
