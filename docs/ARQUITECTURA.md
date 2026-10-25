@@ -23,7 +23,7 @@ Las aplicaciones comparten PostgreSQL en el MVP. Los permisos de lectura deben c
 | Modelo | Campos principales | Responsabilidad |
 |---|---|---|
 | `User` | `id`, `username`, `email`, `password`, `date_joined` | Cuenta y autenticación. Django almacena el hash en `password`. |
-| `Post` | `id`, `author`, `content`, `visibility`, `parent_post`, `created_at`, `updated_at` | Publicación raíz o respuesta en un hilo. |
+| `Post` | `id`, `author`, `content`, `visibility`, `parent_post`, `created_at`, `updated_at` | Publicación raíz o respuesta directa a una publicación raíz. |
 | `MediaFile` | `id`, `post`, `file`, `file_type`, `content_type`, `file_size`, `created_at` | Referencia a un archivo multimedia y sus metadatos. |
 
 Los nombres son propuestas para los modelos Django, no código ya implementado. El modelo de usuario debe definirse antes de crear la primera migración. Los archivos binarios no se guardarán en PostgreSQL; el campo `file` apunta al almacenamiento.
@@ -36,7 +36,7 @@ Los nombres son propuestas para los modelos Django, no código ya implementado. 
 | `members` | Usuarios autenticados. |
 | `private` | Solo el autor. |
 
-En el MVP, una respuesta y sus adjuntos heredan el nivel de visibilidad de la publicación raíz. Los archivos no pueden servirse mediante una URL estática que evite comprobar los permisos.
+En el MVP, una respuesta directa a una publicación raíz y sus adjuntos heredan el nivel de visibilidad de esa publicación. Las respuestas anidadas no forman parte del MVP. Los archivos no pueden servirse mediante una URL estática que evite comprobar los permisos.
 
 ## Flujo de archivos
 
