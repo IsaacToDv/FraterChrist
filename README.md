@@ -34,6 +34,7 @@
 <p align="center">
   <a href="https://pytest-django.readthedocs.io/"><img alt="pytest-django" src="https://img.shields.io/badge/pytest--django-0A9EDC?style=flat-square&logo=pytest&logoColor=white" /></a>
   <a href="https://docs.astral.sh/ruff/"><img alt="Ruff" src="https://img.shields.io/badge/Ruff-D7FF64?style=flat-square&logo=ruff&logoColor=black" /></a>
+  <a href="https://vitest.dev/"><img alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white" /></a>
   <a href="https://github.com/features/actions"><img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white" /></a>
 </p>
 
@@ -101,15 +102,18 @@ classDiagram
 
     class Post {
         +id: integer
+        +author: User
         +content: text
         +visibility: Visibility
+        +parent_post: Post [optional]
         +created_at: datetime
         +updated_at: datetime
     }
 
     class MediaFile {
         +id: integer
-        +file: file_path
+        +post: Post
+        +file: FileField
         +file_type: FileType
         +content_type: string
         +file_size: integer
@@ -118,15 +122,15 @@ classDiagram
 
     class Visibility {
         <<enumeration>>
-        PUBLIC
-        MEMBERS
-        PRIVATE
+        public
+        members
+        private
     }
 
     class FileType {
         <<enumeration>>
-        IMAGE
-        VIDEO
+        image
+        video
     }
 
     User "1" --> "0..*" Post : author
@@ -136,7 +140,7 @@ classDiagram
     MediaFile --> FileType : file_type
 ~~~
 
-The UML uses the proposed Django model names and fields. `User.password` is managed by Django and stores a password hash, never the original password. `Post.parent_post` is optional: it is empty for a root post and points to the parent post for a reply. `MediaFile.file` stores a path or storage reference, not the binary data in PostgreSQL. These are planned models, not implemented code.
+The UML uses proposed Django model names and field names. Django's `User.password` stores a password hash, never the original password. `Post.parent_post` is empty for a root post and points to the root post for a reply; nested replies are outside the MVP. `MediaFile.file` is a Django `FileField`: the database stores a storage reference, not the file's binary content. The diagram is a design proposal, not implemented code.
 
 ## Hoja de ruta del MVP
 
