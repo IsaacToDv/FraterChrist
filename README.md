@@ -181,6 +181,7 @@ Lee las [pautas de contribución](CONTRIBUTING.md) antes de enviar cambios.
 
 - [Arquitectura del MVP](docs/ARQUITECTURA.md)
 - [Requisitos del MVP](docs/REQUISITOS.md)
+- [Guía de desarrollo del MVP](docs/GUIA-DESARROLLO-MVP.md)
 - [Seguridad](SECURITY.md)
 
 ## Licencia
