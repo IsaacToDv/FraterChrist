@@ -105,7 +105,7 @@ classDiagram
         +author: User
         +content: text
         +visibility: Visibility
-        +parent_post: Post [optional]
+        +parent_post: Post
         +created_at: datetime
         +updated_at: datetime
     }
