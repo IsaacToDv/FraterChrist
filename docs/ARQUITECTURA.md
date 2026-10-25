@@ -1,99 +1,50 @@
-# Arquitectura propuesta
+# Arquitectura del MVP
 
-**Estado:** propuesta de diseño; no describe componentes implementados.
+**Estado:** diseño propuesto; todavía no hay una aplicación implementada.
 
-## Decisión principal
+## Decisión
 
-Comenzar con un **monolito modular pequeño**. Una sola API y una base de datos son suficientes para el objetivo de aprendizaje. No se necesitan microservicios, colas, caché ni infraestructura distribuida para este MVP.
+- **Backend:** Python, Django y Django REST Framework.
+- **Frontend:** React, TypeScript y Vite.
+- **Base de datos:** PostgreSQL.
+- **Medios:** archivos privados fuera de PostgreSQL; la base conserva metadatos.
+- **Arquitectura:** monolito modular, no microservicios.
 
-## Vista lógica
+## Módulos iniciales
 
-```text
-Fase 1
-Cliente de prueba (Swagger / Postman)
-               |
-               v
-         FastAPI / HTTP
-               |
-               v
-     Esquemas y validación
-          (Pydantic)
-               |
-               v
-       Lógica de aplicación
-               |
-               v
-     SQLAlchemy / consultas
-               |
-               v
-          PostgreSQL
+- **Accounts:** registro, sesión y autenticación.
+- **Feed:** publicaciones, listado cronológico e hilos.
+- **Permissions:** reglas de visibilidad aplicadas en el servidor.
+- **Media:** carga, validación y entrega de fotos y videos protegidos.
 
-Fase 2
-Interfaz React + TypeScript
-               |
-          API HTTP/JSON
-               v
-      La misma API FastAPI
-```
+Los módulos comparten una base PostgreSQL durante el MVP. La lógica de un módulo no debe depender de detalles internos de los demás más allá de contratos claros.
 
-## Responsabilidad de las partes
+## Visibilidad
 
-- **Rutas FastAPI:** reciben peticiones HTTP, validan entradas mediante esquemas y entregan respuestas con códigos apropiados.
-- **Esquemas Pydantic:** definen las entradas y salidas públicas de la API; no sustituyen las restricciones de la base de datos.
-- **Lógica de aplicación:** concentra reglas como longitud de publicación, relación de respuestas y permisos.
-- **Persistencia:** SQLAlchemy y PostgreSQL guardan usuarios y publicaciones. Alembic versiona los cambios estructurales.
-- **Pruebas:** pytest cubre reglas de dominio y API. Los datos de prueba son sintéticos.
-- **Análisis:** consultas SQL producen métricas definidas; pandas puede explorar y presentar los resultados en un notebook acotado.
-- **Interfaz (fase 2):** consume la API pública; no accede directamente a PostgreSQL.
+| Nivel | Acceso |
+|---|---|
+| \`public\` | Cualquier persona, incluso sin iniciar sesión. |
+| \`members\` | Solo usuarios autenticados. |
+| \`private\` | Solo el autor. |
 
-La separación debe mantenerse simple. Crear una capa o archivo nuevo solo cuando aclare una responsabilidad real.
+En esta primera versión las respuestas y los adjuntos heredan la visibilidad de la publicación raíz. Los permisos deben aplicarse en la API al listar, recuperar y servir medios; ocultar elementos en React no es un control de seguridad.
 
-## Modelo de datos inicial propuesto
+## Modelo inicial
 
-### `users`
+- **User:** identidad de la cuenta.
+- **Post:** autor, contenido, visibilidad, fecha y referencia opcional a una publicación padre.
+- **MediaAsset:** tipo de medio, clave de almacenamiento, MIME, tamaño y publicación asociada.
 
-- `id`: clave primaria.
-- `display_name`: nombre visible, con longitud limitada.
-- `email`: identificador de inicio de sesión, único y normalizado.
-- `password_hash`: hash de contraseña, nunca la contraseña original.
-- `created_at`: fecha de creación.
-- `is_active`: indicador básico de estado.
+Una publicación puede contener texto, uno o varios adjuntos, o ambos según las reglas de validación. Los binarios no se guardan en PostgreSQL.
 
-### `posts`
+## Flujo multimedia
 
-- `id`: clave primaria.
-- `author_id`: clave foránea hacia `users.id`.
-- `parent_post_id`: referencia opcional a otra publicación; nulo para una publicación raíz y no nulo para una respuesta.
-- `content`: texto de longitud limitada.
-- `created_at` y `updated_at`: fechas de auditoría básicas.
+En desarrollo, utilizar almacenamiento local privado y un endpoint que verifique permisos antes de entregar el archivo. Validar tipo, tamaño y nombre; no confiar solo en la extensión proporcionada por el cliente. Más adelante, la interfaz de almacenamiento podrá usar un servicio compatible con S3.
 
-Este diseño permite un feed cronológico y respuestas con un modelo más pequeño que una tabla distinta por tipo de mensaje. Los detalles de integridad, borrado y límites de profundidad deben quedar definidos en los requisitos antes de implementar.
+El MVP no requiere transcodificación, CDN, streaming adaptativo, colas ni un servidor de video en directo. Se evaluarán cuando las necesidades del producto lo justifiquen.
 
-## API objetivo del MVP
+## Roadmap posterior
 
-Los paths son orientativos hasta completar la implementación:
+Perfiles avanzados, seguidores, mesas comunitarias y salas de voz/video, pizarras y juegos educativos se mantienen fuera del MVP. Se pueden integrar luego como módulos independientes dentro del mismo monolito y separar solo si existe una necesidad demostrable.
 
-- `GET /health`: comprobar que la API responde.
-- `POST /auth/register`: registrar una cuenta.
-- `POST /auth/login`: autenticar una cuenta.
-- `GET /posts`: listar publicaciones raíz de forma paginada.
-- `POST /posts`: crear una publicación raíz autenticada.
-- `GET /posts/{post_id}/replies`: consultar respuestas de un hilo.
-- `POST /posts/{post_id}/replies`: responder a una publicación con permisos adecuados.
-
-No son endpoints existentes. Deben implementarse, documentarse y probarse antes de presentarlos como funcionales.
-
-## Seguridad mínima desde la fase 1
-
-- Almacenar contraseñas con un algoritmo de hash dedicado y una configuración apropiada; nunca cifrado reversible ni texto plano.
-- Guardar secretos en variables de entorno locales ignoradas por Git; incluir únicamente valores de ejemplo no sensibles.
-- Validar longitud y contenido de entradas, usar consultas parametrizadas/ORM y limitar paginación.
-- Comprobar la identidad y autorización en las operaciones protegidas.
-- No registrar contraseñas, tokens ni contenido sensible en logs.
-- Ejecutar pruebas de entradas inválidas y accesos no autorizados.
-
-La revisión de la fase 2 profundiza estos controles; no reemplaza la seguridad básica del MVP.
-
-## Entorno reproducible
-
-Docker Compose podrá levantar PostgreSQL para desarrollo. Las migraciones deben ser la forma documentada de construir el esquema; no depender de cambios manuales en una base local. La aplicación no debe declararse lista mientras no exista una guía verificada de instalación, migración, ejecución y pruebas.
+El diagrama de componentes y el modelo UML visibles en el [README](../README.md#arquitectura) representan esta propuesta.
