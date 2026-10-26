@@ -14,6 +14,7 @@
 
 <p align="center">
   <a href="#proyecto-personal">Proyecto</a> ·
+  <a href="#progreso">Progreso</a> ·
   <a href="#arquitectura">Arquitectura</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#estructura-del-repositorio">Estructura</a>
@@ -45,6 +46,17 @@
 Este repositorio documenta el desarrollo individual de un **MVP de portafolio**: un feed con publicaciones, respuestas y controles de visibilidad. El objetivo es practicar y demostrar decisiones de arquitectura, desarrollo backend y frontend, modelado de datos, pruebas y manejo seguro de archivos.
 
 **Estado actual:** el código de la aplicación aún está por desarrollar. Este repositorio no es la plataforma completa ni el repositorio principal de la futura iniciativa comunitaria.
+
+## Progreso
+
+<p align="center">
+  <a href="Progreso/README.md"><img alt="Consultar progreso y aprendizaje" src="https://img.shields.io/badge/Progreso-bit%C3%A1cora%20de%20aprendizaje-6F42C1?style=for-the-badge&logo=github&logoColor=white" /></a>
+</p>
+
+La carpeta [`Progreso/`](Progreso/README.md) reúne el avance del MVP, los conceptos aprendidos, las dificultades resueltas y la evidencia de cada sesión. El registro distingue la planificación del trabajo realmente implementado.
+
+- [Panel de progreso](Progreso/README.md)
+- [Bitácora de aprendizaje](Progreso/REGISTRO.md)
 
 ## Alcance del MVP
 
@@ -211,13 +223,10 @@ Automatizar pruebas, verificar permisos y documentar cómo ejecutar y demostrar 
 
 ~~~text
 FraterChrist/
-├── backend/        # Django REST API
+├── backend/        # API Django REST Framework
 ├── frontend/       # React + TypeScript + Vite
-├── docs/
-│   ├── ARQUITECTURA.md
-│   ├── REQUISITOS.md
-│   ├── PLAN-IMPLEMENTACION.md
-│   └── roadmap-fraterchrist.pdf
+├── docs/           # Arquitectura, requisitos y plan
+├── Progreso/       # Bitácora de aprendizaje y evidencias
 ├── .gitignore
 ├── LICENSE
 └── README.md
