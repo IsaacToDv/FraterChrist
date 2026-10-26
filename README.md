@@ -223,9 +223,9 @@ Automatizar pruebas, verificar permisos y documentar cómo ejecutar y demostrar 
 
 ~~~text
 FraterChrist/
-├── backend/        # API Django REST Framework
-├── frontend/       # React + TypeScript + Vite
-├── docs/           # Arquitectura, requisitos y plan
+├── backend/        # Estructura prevista del backend
+├── frontend/       # Estructura prevista de React + TypeScript
+├── docs/           # Arquitectura, requisitos, plan y roadmap PDF
 ├── Progreso/       # Bitácora de aprendizaje y evidencias
 ├── .gitignore
 ├── LICENSE
