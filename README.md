@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="Licencia GPL-3.0" src="https://img.shields.io/badge/Licencia%20GPL-3.0-blue?style=flat-square&logo=gnu&logoColor=white" /></a>
-  <img alt="Proyecto en planificación" src="https://img.shields.io/badge/estado-MVP%20en%20planificaci%C3%B3n-yellow?style=for-the-badge" />
-  <img alt="Open source · contribuciones bienvenidas" src="https://img.shields.io/badge/open%20source-contribuciones%20bienvenidas-2ea44f?style=for-the-badge&logo=github&logoColor=white" />
+  <img alt="Proyecto en planificación" src="https://img.shields.io/badge/estado-MVP%20en%20planificaci%C3%B3n-6F42C1?style=for-the-badge" />
+  <img alt="Open source · contribuciones bienvenidas" src="https://img.shields.io/badge/open%20source-contribuciones%20bienvenidas-6F42C1?style=for-the-badge&logo=github&logoColor=white" />
 </p>
 
 <blockquote>
@@ -42,13 +42,19 @@
 
 ---
 
-## Acerca de
+<p align="center">
+  <a href="#mvp">MVP</a> ·
+  <a href="#arquitectura">Arquitectura</a> ·
+  <a href="#roadmap">Roadmap</a> ·
+  <a href="#contribuir">Contribuir</a> ·
+  <a href="#licencia">Licencia</a>
+</p>
 
-FraterChrist es una red social cristiana de código abierto para compartir publicaciones y conversar en comunidad. El MVP se centra en el Feed; los perfiles avanzados, las mesas y las salas interactivas se incorporarán más adelante.
+---
 
-## MVP: el Feed
+## MVP
 
-La primera versión incluirá publicaciones de texto, fotos y videos, hilos de respuestas, cuentas y tres niveles de visibilidad.
+FraterChrist comienza con un **Feed para publicaciones de texto, fotos y videos**, respuestas en hilos y control de visibilidad.
 
 | Visibilidad | Quién puede leer |
 |---|---|
@@ -56,20 +62,20 @@ La primera versión incluirá publicaciones de texto, fotos y videos, hilos de r
 | **Limitada a miembros** | Usuarios con sesión iniciada. |
 | **Privada** | Solo el autor. |
 
-Las respuestas y los archivos adjuntos heredan la visibilidad de la publicación raíz. La API comprobará los permisos en cada lectura; ocultar contenido en la interfaz no es suficiente.
+Las respuestas y sus archivos adjuntos heredan la visibilidad de la publicación raíz. La API debe validar los permisos en cada lectura; ocultar contenido en la interfaz no es suficiente.
 
 ## Arquitectura
 
-El MVP usa un **monolito modular**: una aplicación Django con módulos separados, una API REST y PostgreSQL. Los archivos multimedia se almacenan fuera de la base de datos. En desarrollo, se usará almacenamiento local privado; se podrá sustituir por almacenamiento compatible con S3 más adelante.
+El MVP usa un **monolito modular** con Django REST Framework, React y PostgreSQL. Los archivos multimedia se almacenan fuera de la base de datos y PostgreSQL conserva sus metadatos. El almacenamiento local será privado durante el desarrollo, con opción de migrar después a un servicio compatible con S3.
 
-### Componentes
+### Diagrama de componentes
 
 ~~~mermaid
 flowchart TB
     Visitor["Visitor or member"]
     Web["Web client<br/>React · TypeScript · Vite"]
     API["REST API<br/>Django REST Framework"]
-    Accounts["Accounts<br/>sign-in and user identity"]
+    Accounts["Accounts<br/>identity and sign-in"]
     Feed["Feed<br/>posts and replies"]
     Media["Media<br/>file validation and access control"]
     DB[("PostgreSQL<br/>users · posts · media metadata")]
@@ -134,39 +140,84 @@ classDiagram
     }
 
     User "1" --> "0..*" Post : author
-    Post "0..1" --> "0..*" Post : parent_post / replies
-    Post "1" --> "0..*" MediaFile : attached_files
+    Post "0..1" --> "0..*" Post : parent / replies
+    Post "1" --> "0..*" MediaFile : attached files
     Post --> Visibility : visibility
-    MediaFile --> FileType : file_type
+    MediaFile --> FileType : file type
 ~~~
 
-The UML uses proposed Django model names and field names. Django's `User.password` stores a password hash, never the original password. `Post.parent_post` is empty for a root post and points to the root post for a reply; nested replies are outside the MVP. `MediaFile.file` is a Django `FileField`: the database stores a storage reference, not the file's binary content. The diagram is a design proposal, not implemented code.
+<details>
+<summary><strong>Cómo leer el UML</strong></summary>
 
-## Hoja de ruta del MVP
+- **User → Post:** una cuenta puede crear muchas publicaciones; cada publicación tiene un autor.
+- **Post → Post:** `parent_post` es opcional. Una publicación raíz no tiene padre; una respuesta apunta a la publicación raíz. Las respuestas anidadas quedan fuera del MVP.
+- **Post → MediaFile:** una publicación puede tener cero o varios archivos adjuntos.
+- **Visibility:** `public` permite leer sin sesión, `members` requiere iniciar sesión y `private` solo permite leer al autor.
+- **FileType:** identifica si el archivo es una imagen o un video.
 
-### Roadmap visual (PDF)
+`User.password` es el campo de Django que almacena un hash de contraseña, no la contraseña original. `MediaFile.file` guarda una referencia al almacenamiento; el binario no se guarda en PostgreSQL.
 
-> **Pendiente de incorporar:** el PDF original todavía no está subido al repositorio.
->
-> Para añadirlo, coloca el archivo en `docs/roadmap-fraterchrist-v5.pdf` y reemplaza este aviso por el enlace:
-> `[Ver roadmap visual (PDF)](docs/roadmap-fraterchrist-v5.pdf)`
->
-> Si prefieres alojarlo fuera de GitHub, sustituye la ruta por el enlace público correspondiente.
+Este UML describe el diseño previsto. No representa modelos que ya estén implementados.
+</details>
 
-El orden activo está en las [Issues #20–#27](https://github.com/IsaacToDv/FraterChrist/issues).
+## Roadmap
 
-1. **Base técnica** — [#20](https://github.com/IsaacToDv/FraterChrist/issues/20): Django, Django REST Framework y PostgreSQL.
-2. **Modelos y privacidad** — [#21](https://github.com/IsaacToDv/FraterChrist/issues/21) y [#22](https://github.com/IsaacToDv/FraterChrist/issues/22): usuarios, publicaciones, adjuntos, autenticación y permisos.
-3. **Feed y multimedia** — [#23](https://github.com/IsaacToDv/FraterChrist/issues/23) y [#24](https://github.com/IsaacToDv/FraterChrist/issues/24): listar, publicar, responder y cargar fotos o videos.
-4. **Interfaz web** — [#25](https://github.com/IsaacToDv/FraterChrist/issues/25): conectar React con la API.
-5. **Calidad y entrega** — [#26](https://github.com/IsaacToDv/FraterChrist/issues/26) y [#27](https://github.com/IsaacToDv/FraterChrist/issues/27): pruebas de privacidad, integración continua y guía de ejecución.
+<p align="center">
+  <a href="docs/roadmap-fraterchrist.pdf"><img alt="Abrir roadmap visual en PDF" src="https://img.shields.io/badge/ROADMAP-Abrir%20PDF-6F42C1?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" /></a>
+</p>
+
+<p align="center">
+  <a href="docs/roadmap-fraterchrist.pdf">Ver roadmap visual original (PDF)</a> ·
+  <a href="docs/roadmap-fraterchrist.pdf">Abrir o descargar PDF</a>
+</p>
+
+<p align="center"><em>El PDF conserva el roadmap visual; las Issues enlazadas son la referencia de trabajo del MVP.</em></p>
+
+<details open>
+<summary><strong>1 · Base técnica</strong> — Issue #20</summary>
+
+Preparar Django, Django REST Framework, PostgreSQL y el entorno local reproducible.
+
+[Ver Issue #20](https://github.com/IsaacToDv/FraterChrist/issues/20)
+</details>
+
+<details>
+<summary><strong>2 · Modelos y privacidad</strong> — Issues #21–#22</summary>
+
+Definir usuarios, publicaciones, respuestas y archivos. Implementar registro, sesión y permisos para publicaciones públicas, limitadas y privadas.
+
+[Issue #21 · Modelos](https://github.com/IsaacToDv/FraterChrist/issues/21) · [Issue #22 · Autenticación y permisos](https://github.com/IsaacToDv/FraterChrist/issues/22)
+</details>
+
+<details>
+<summary><strong>3 · Feed y multimedia</strong> — Issues #23–#24</summary>
+
+Crear el listado cronológico, publicar y responder en hilos, y añadir fotos y videos con acceso protegido.
+
+[Issue #23 · Feed](https://github.com/IsaacToDv/FraterChrist/issues/23) · [Issue #24 · Multimedia](https://github.com/IsaacToDv/FraterChrist/issues/24)
+</details>
+
+<details>
+<summary><strong>4 · Interfaz web</strong> — Issue #25</summary>
+
+Conectar React y TypeScript a la API y completar los flujos básicos: leer, iniciar sesión, publicar y responder.
+
+[Ver Issue #25](https://github.com/IsaacToDv/FraterChrist/issues/25)
+</details>
+
+<details>
+<summary><strong>5 · Pruebas y entrega</strong> — Issues #26–#27</summary>
+
+Comprobar la privacidad y los flujos principales, automatizar pruebas y linting, y documentar cómo ejecutar el MVP desde cero.
+
+[Issue #26 · Pruebas y CI](https://github.com/IsaacToDv/FraterChrist/issues/26) · [Issue #27 · Documentación y demo](https://github.com/IsaacToDv/FraterChrist/issues/27)
+</details>
 
 **Después del MVP:** perfiles avanzados, seguidores, mesas de oración o estudio, videollamadas, pizarras y juegos educativos.
 
-## Cómo colaborar
+## Contribuir
 
-1. Elige una [Issue abierta](https://github.com/IsaacToDv/FraterChrist/issues) o crea una propuesta.
-2. Haz un **Fork** y clónalo. Sustituye `TU-USUARIO` por tu usuario de GitHub:
+Las contribuciones son bienvenidas. Empieza por una [Issue abierta](https://github.com/IsaacToDv/FraterChrist/issues), haz un fork y crea una rama:
 
 ~~~bash
 git clone https://github.com/TU-USUARIO/FraterChrist.git
@@ -174,7 +225,7 @@ cd FraterChrist
 git switch -c feat/mi-cambio
 ~~~
 
-3. Haz los cambios y súbelos:
+Después, realiza y sube tus cambios:
 
 ~~~bash
 git add .
@@ -182,16 +233,11 @@ git commit -m "feat: describe el cambio"
 git push -u origin feat/mi-cambio
 ~~~
 
-4. Abre un Pull Request desde tu fork hacia la rama `main` de FraterChrist.
-
-Lee las [pautas de contribución](CONTRIBUTING.md) antes de enviar cambios.
+Abre un Pull Request desde tu fork hacia la rama `main` de FraterChrist. Consulta las [pautas de contribución](CONTRIBUTING.md) antes de enviar cambios.
 
 ## Documentación
 
-- [Arquitectura del MVP](docs/ARQUITECTURA.md)
-- [Requisitos del MVP](docs/REQUISITOS.md)
-- [Guía de desarrollo del MVP](docs/GUIA-DESARROLLO-MVP.md)
-- [Seguridad](SECURITY.md)
+[Arquitectura](docs/ARQUITECTURA.md) · [Requisitos del MVP](docs/REQUISITOS.md) · [Guía de desarrollo](docs/GUIA-DESARROLLO-MVP.md) · [Seguridad](SECURITY.md)
 
 ## Licencia
 
