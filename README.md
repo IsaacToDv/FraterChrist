@@ -64,7 +64,7 @@ Las respuestas y sus archivos adjuntos heredan la visibilidad de la publicación
 
 ## Arquitectura
 
-El MVP usa un **monolito modular** con Django REST Framework, React y PostgreSQL. Los archivos multimedia se almacenan fuera de la base de datos y PostgreSQL conserva sus metadatos. El almacenamiento local será privado durante el desarrollo, con opción de migrar después a un servicio compatible con S3.
+El MVP usará un **monolito modular** con Django REST Framework, React y PostgreSQL. Los archivos multimedia se almacenan fuera de la base de datos y PostgreSQL conserva sus metadatos. El almacenamiento local será privado durante el desarrollo, con opción de migrar después a un servicio compatible con S3.
 
 ### Diagrama de componentes
 
@@ -169,7 +169,7 @@ Este UML describe el diseño previsto. No representa modelos que ya estén imple
   <a href="docs/roadmap-fraterchrist.pdf">Abrir o descargar PDF</a>
 </p>
 
-<p align="center"><em>El PDF conserva el roadmap visual; las Issues enlazadas son la referencia de trabajo del MVP.</em></p>
+<p align="center"><em>En el roadmap las Issues enlazadas son la referencia de trabajo progresivo del MVP.</em></p>
 
 <details open>
 <summary><strong>1 · Base técnica</strong> — Issue #20</summary>
