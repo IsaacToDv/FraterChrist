@@ -144,6 +144,15 @@ The UML uses proposed Django model names and field names. Django's `User.passwor
 
 ## Hoja de ruta del MVP
 
+### Roadmap visual (PDF)
+
+> **Pendiente de incorporar:** el PDF original todavía no está subido al repositorio.
+>
+> Para añadirlo, coloca el archivo en `docs/roadmap-fraterchrist-v5.pdf` y reemplaza este aviso por el enlace:
+> `[Ver roadmap visual (PDF)](docs/roadmap-fraterchrist-v5.pdf)`
+>
+> Si prefieres alojarlo fuera de GitHub, sustituye la ruta por el enlace público correspondiente.
+
 El orden activo está en las [Issues #20–#27](https://github.com/IsaacToDv/FraterChrist/issues).
 
 1. **Base técnica** — [#20](https://github.com/IsaacToDv/FraterChrist/issues/20): Django, Django REST Framework y PostgreSQL.
