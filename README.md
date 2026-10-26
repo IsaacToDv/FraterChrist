@@ -19,8 +19,6 @@
   <a href="https://github.com/IsaacToDv/FraterChrist/issues/new">Propón una mejora</a>
 </p>
 
-**Estado:** en planificación. FraterChrist todavía no está disponible para uso público.
-
 <p align="center"><strong>Stack del MVP</strong></p>
 <p align="center">
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" /></a>
