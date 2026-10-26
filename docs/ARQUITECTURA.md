@@ -1,32 +1,56 @@
-# Arquitectura del MVP
+# Arquitectura del MVP personal
 
-**Estado:** diseño propuesto. La aplicación todavía no está implementada.
+**Estado:** propuesta de diseño; la aplicación todavía no está implementada.
 
-## Stack
+## Stack previsto
 
 - **Backend:** Python, Django y Django REST Framework.
 - **Frontend:** React, TypeScript y Vite.
-- **Datos:** PostgreSQL.
-- **Archivos:** almacenamiento local privado durante el desarrollo; diseño preparado para migrar a un servicio compatible con S3.
-- **Arquitectura:** monolito modular, sin microservicios para el MVP.
+- **Base de datos:** PostgreSQL.
+- **Archivos:** almacenamiento local privado durante el desarrollo.
+- **Arquitectura:** monolito modular; sin microservicios para el MVP.
 
-## Aplicaciones Django
+## Estructura prevista
 
-- **`accounts`:** identidad de usuario, registro e inicio/cierre de sesión.
-- **`feed`:** publicaciones, respuestas e implementación de las reglas de visibilidad.
-- **`media`:** metadatos, validación y acceso protegido a fotos y videos.
+~~~text
+backend/
+├── manage.py
+├── config/
+└── apps/
+    ├── accounts/
+    ├── feed/
+    └── media/
 
-Las aplicaciones comparten PostgreSQL en el MVP. Los permisos de lectura deben comprobarse desde la API en listados, detalles, respuestas y archivos; no se consideran una responsabilidad exclusiva del frontend.
+frontend/
+└── src/
+    ├── app/
+    ├── features/
+    │   ├── auth/
+    │   └── feed/
+    └── shared/
+~~~
 
-## Modelo propuesto
+Esta estructura es una guía para la implementación, no una representación de código ya existente.
+
+## Módulos
+
+- **Accounts:** identidad de usuario y autenticación.
+- **Feed:** publicaciones, listado cronológico e hilos.
+- **Media:** metadatos, validación y acceso protegido a fotos y videos.
+
+Los módulos comparten PostgreSQL. La API decide qué publicaciones y archivos puede consultar cada usuario.
+
+## Modelo de datos previsto
 
 | Modelo | Campos principales | Responsabilidad |
 |---|---|---|
-| `User` | `id`, `username`, `email`, `password`, `date_joined` | Cuenta y autenticación. Django almacena el hash en `password`. |
-| `Post` | `id`, `author`, `content`, `visibility`, `parent_post` (opcional), `created_at`, `updated_at` | Publicación raíz o respuesta directa a una publicación raíz. |
-| `MediaFile` | `id`, `post`, `file`, `file_type`, `content_type`, `file_size`, `created_at` | Referencia a un archivo multimedia y sus metadatos. |
+| `User` | `id`, `username`, `email`, `password`, `date_joined` | Cuenta. Django almacena un hash de contraseña en `password`. |
+| `Post` | `id`, `author`, `content`, `visibility`, `parent_post`, `created_at`, `updated_at` | Publicación raíz o respuesta directa a una raíz. |
+| `MediaFile` | `id`, `post`, `file`, `file_type`, `content_type`, `file_size`, `created_at` | Referencia y metadatos de una foto o video. |
 
-Los nombres son propuestas para los modelos Django, no código ya implementado. El modelo de usuario debe definirse antes de crear la primera migración. Los archivos binarios no se guardarán en PostgreSQL; el campo `file` apunta al almacenamiento.
+El modelo de usuario debe definirse antes de crear la primera migración. El campo `parent_post` será opcional: vacío en publicaciones raíz y apuntando a la raíz en las respuestas. Las respuestas anidadas no forman parte del MVP.
+
+Los binarios se almacenan fuera de PostgreSQL. `MediaFile.file` guarda la referencia al almacenamiento, y la base de datos conserva los metadatos.
 
 ## Reglas de visibilidad
 
@@ -36,19 +60,19 @@ Los nombres son propuestas para los modelos Django, no código ya implementado. 
 | `members` | Usuarios autenticados. |
 | `private` | Solo el autor. |
 
-En el MVP, una respuesta directa a una publicación raíz y sus adjuntos heredan el nivel de visibilidad de esa publicación. Las respuestas anidadas no forman parte del MVP. Los archivos no pueden servirse mediante una URL estática que evite comprobar los permisos.
+En esta versión, las respuestas y sus archivos heredan la visibilidad de la publicación raíz. Cada consulta de publicaciones, respuestas o archivos debe verificar los permisos en el servidor.
 
 ## Flujo de archivos
 
-1. La API autentica al usuario y valida el tamaño y tipo de archivo.
+1. La API autentica al usuario y valida el tipo y tamaño.
 2. El archivo se guarda en almacenamiento privado.
-3. PostgreSQL conserva el modelo `MediaFile` y su referencia al archivo.
-4. En cada lectura, la API comprueba la visibilidad de la publicación antes de servir el archivo.
+3. PostgreSQL guarda el modelo `MediaFile` y su referencia.
+4. Al leer el archivo, la API comprueba los permisos de la publicación asociada.
 
-La primera versión no necesita transcodificación, CDN, streaming adaptativo, colas ni videollamadas. Esos servicios se evaluarán cuando el Feed funcione.
+No se implementarán transcodificación, CDN, videollamadas ni procesamiento distribuido en el MVP.
 
-## Fuera del MVP
+## Alcance futuro
 
-Perfiles avanzados, seguidores, mesas comunitarias, videollamadas, pizarras y juegos educativos. Se podrán añadir como módulos futuros sin convertir toda la aplicación en microservicios.
+Perfiles avanzados, seguidores, mesas comunitarias, salas de voz o video, pizarras y juegos educativos quedan fuera de este repositorio personal. Podrán estudiarse en una etapa distinta sin anticipar complejidad en el MVP.
 
-Los diagramas de componentes y clases están en el [README](../README.md#arquitectura).
+El diagrama de componentes y el UML del dominio se muestran en el [README](../README.md#arquitectura).
