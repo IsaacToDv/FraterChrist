@@ -36,7 +36,7 @@
   <a href="https://github.com/features/actions"><img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white" /></a>
 </p>
 
-*Las tecnologías se adoptarán durante el desarrollo del MVP; las insignias no indican que ya estén implementadas.*
+*Estas tecnologías son para el MVP, puede cambiar según la viabilidad del mismo*
 
 ---
 
