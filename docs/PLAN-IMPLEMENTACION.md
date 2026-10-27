@@ -1,61 +1,36 @@
-# Plan de implementación
+# Plan de implementación — Core Feed
 
-Este plan define el trabajo del MVP personal de FraterChrist. Cada etapa debe terminar con código verificable y, cuando corresponda, pruebas que demuestren su comportamiento.
+Cada etapa debe terminar con código ejecutable y verificaciones observables. El alcance es texto, autenticación, visibilidad pública/privada y respuestas simples.
 
-## 1. Entorno y backend
+## Orden principal
 
-**Issue #20**
+1. **[Issue #20 — Fundación técnica](https://github.com/IsaacToDv/FraterChrist/issues/20)**  
+   Inicializar Django + DRF, PostgreSQL, variables de entorno, endpoint de salud e instrucciones reproducibles. Este es el punto de partida.
 
-Preparar Python, Django, Django REST Framework y PostgreSQL. Documentar la configuración local y crear una base de proyecto que pueda arrancar de forma reproducible.
+2. **[Issue #21 — Modelos](https://github.com/IsaacToDv/FraterChrist/issues/21)**  
+   Modelar usuario Django, publicaciones de texto, visibilidad y respuestas directas. Crear migraciones, registrar en Django Admin y probar las relaciones.
 
-## 2. Modelos
+3. **[Issue #22 — Autenticación y permisos](https://github.com/IsaacToDv/FraterChrist/issues/22)**  
+   Registro, sesión y CSRF; aplicar reglas de lectura y autoría en el servidor.
 
-**Issue #21**
+4. **[Issue #23 — API REST](https://github.com/IsaacToDv/FraterChrist/issues/23)**  
+   Crear, listar, consultar, editar y eliminar publicaciones; crear y listar respuestas. Mantener el feed raíz en orden cronológico y paginado.
 
-Definir los modelos de usuario, publicación y archivo; crear las migraciones y reflejar las tres reglas de visibilidad. El modelo de usuario debe definirse antes de la primera migración.
+5. **[Issue #25 — Frontend mínimo](https://github.com/IsaacToDv/FraterChrist/issues/25)**  
+   Conectar React/TypeScript a la API y completar registro, login, feed, publicación y respuesta sin diseño visual avanzado.
 
-## 3. Autenticación y permisos
+6. **[Issue #26 — Pruebas y CI](https://github.com/IsaacToDv/FraterChrist/issues/26)**  
+   Consolidar pruebas del Core, comprobaciones de estilo y GitHub Actions. Escribir pruebas desde el inicio, junto a cada función.
 
-**Issue #22**
+7. **[Issue #27 — Demo y evidencia](https://github.com/IsaacToDv/FraterChrist/issues/27)**  
+   Documentar ejecución, decisiones y límites; grabar una demostración real y reproducible.
 
-Implementar inicio de sesión y las reglas de acceso para visitantes, miembros y autores. Verificar las decisiones en el backend con pruebas para cada tipo de usuario.
+## Fase de expansión — no bloquea el Core
 
-## 4. API del Feed
+- **[Issue #24 — Fotos, videos y acceso protegido a archivos](https://github.com/IsaacToDv/FraterChrist/issues/24).**
+- **Visibilidad para miembros:** issue de expansión enlazada desde el [listado de issues](https://github.com/IsaacToDv/FraterChrist/issues).
+- Perfiles avanzados, likes, seguidores, mensajería, recomendaciones, salas, videollamadas, pizarras y juegos.
 
-**Issue #23**
+## Criterio de progreso
 
-Crear y listar publicaciones, consultar respuestas y responder directamente a una publicación raíz. Añadir paginación y errores claros.
-
-## 5. Fotos y videos
-
-**Issue #24**
-
-Validar los archivos, guardarlos en almacenamiento privado y comprobar los permisos antes de servirlos. Mantener el binario fuera de PostgreSQL.
-
-## 6. Interfaz web
-
-**Issue #25**
-
-Crear la interfaz mínima con React, TypeScript y Vite. Conectar la lectura del feed, autenticación, publicación y respuestas; representar estados de carga, vacío y error.
-
-## 7. Calidad
-
-**Issue #26**
-
-Automatizar pruebas de API y los flujos básicos de interfaz. Añadir Ruff y GitHub Actions para detectar errores y regresiones.
-
-## 8. Demostración de portafolio
-
-**Issue #27**
-
-Documentar instalación, decisiones principales, limitaciones y evidencia real del funcionamiento. Añadir capturas o una demo breve únicamente cuando los flujos estén implementados y comprobados.
-
-## Evidencia que dejará el proyecto
-
-- Código organizado y comprensible.
-- Esquema de datos y decisiones de arquitectura documentados.
-- Pruebas que cubran comportamiento y permisos.
-- Instrucciones reproducibles y demo verificable.
-- Lista explícita de limitaciones y funciones futuras.
-
-Este plan describe objetivos de implementación; no afirma que el MVP ya esté terminado.
+No marques una tarea como terminada por haber creado archivos o escrito documentación. Debe ejecutarse, cumplir sus criterios de aceptación y tener pruebas o evidencia adecuada. Mantén commits pequeños, con un propósito claro y mensajes descriptivos.
