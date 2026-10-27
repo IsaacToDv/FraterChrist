@@ -1,61 +1,23 @@
-# Plan de implementación
+# Plan de implementación — Core Feed
 
-Este plan define el trabajo del MVP personal de FraterChrist. Cada etapa debe terminar con código verificable y, cuando corresponda, pruebas que demuestren su comportamiento.
+Cada etapa debe terminar con código ejecutable y verificaciones observables. El alcance es texto, autenticación, visibilidad pública/privada y respuestas simples.
 
-## 1. Entorno y backend
+## Orden principal
 
-**Issue #20**
+1. **[#20 — Fundación técnica](https://github.com/IsaacToDv/FraterChrist/issues/20):** inicializar Django + DRF, PostgreSQL, variables de entorno y endpoint de salud.
+2. **[#21 — Modelos](https://github.com/IsaacToDv/FraterChrist/issues/21):** usuario Django, publicaciones de texto, visibilidad, respuestas directas, migraciones y Django Admin.
+3. **[#22 — Autenticación y permisos](https://github.com/IsaacToDv/FraterChrist/issues/22):** registro, sesiones, CSRF y autorización en el backend.
+4. **[#23 — API REST](https://github.com/IsaacToDv/FraterChrist/issues/23):** crear, listar, consultar, editar y eliminar publicaciones; crear y listar respuestas.
+5. **[#25 — Frontend mínimo](https://github.com/IsaacToDv/FraterChrist/issues/25):** conectar React/TypeScript y completar registro, login, feed, publicación y respuesta.
+6. **[#26 — Pruebas y CI](https://github.com/IsaacToDv/FraterChrist/issues/26):** consolidar pruebas, comprobaciones de estilo y GitHub Actions. Las pruebas se escriben desde el inicio.
+7. **[#27 — Demo y evidencia](https://github.com/IsaacToDv/FraterChrist/issues/27):** documentar la instalación, mostrar una demo real y registrar limitaciones.
 
-Preparar Python, Django, Django REST Framework y PostgreSQL. Documentar la configuración local y crear una base de proyecto que pueda arrancar de forma reproducible.
+## Fase de expansión — no bloquea el Core
 
-## 2. Modelos
+- [#24 — Fotos, videos y acceso protegido a archivos](https://github.com/IsaacToDv/FraterChrist/issues/24).
+- [#28 — Visibilidad para miembros](https://github.com/IsaacToDv/FraterChrist/issues/28).
+- Perfiles avanzados, likes, seguidores, mensajería, recomendaciones, salas, videollamadas, pizarras y juegos.
 
-**Issue #21**
+## Criterio de progreso
 
-Definir los modelos de usuario, publicación y archivo; crear las migraciones y reflejar las tres reglas de visibilidad. El modelo de usuario debe definirse antes de la primera migración.
-
-## 3. Autenticación y permisos
-
-**Issue #22**
-
-Implementar inicio de sesión y las reglas de acceso para visitantes, miembros y autores. Verificar las decisiones en el backend con pruebas para cada tipo de usuario.
-
-## 4. API del Feed
-
-**Issue #23**
-
-Crear y listar publicaciones, consultar respuestas y responder directamente a una publicación raíz. Añadir paginación y errores claros.
-
-## 5. Fotos y videos
-
-**Issue #24**
-
-Validar los archivos, guardarlos en almacenamiento privado y comprobar los permisos antes de servirlos. Mantener el binario fuera de PostgreSQL.
-
-## 6. Interfaz web
-
-**Issue #25**
-
-Crear la interfaz mínima con React, TypeScript y Vite. Conectar la lectura del feed, autenticación, publicación y respuestas; representar estados de carga, vacío y error.
-
-## 7. Calidad
-
-**Issue #26**
-
-Automatizar pruebas de API y los flujos básicos de interfaz. Añadir Ruff y GitHub Actions para detectar errores y regresiones.
-
-## 8. Demostración de portafolio
-
-**Issue #27**
-
-Documentar instalación, decisiones principales, limitaciones y evidencia real del funcionamiento. Añadir capturas o una demo breve únicamente cuando los flujos estén implementados y comprobados.
-
-## Evidencia que dejará el proyecto
-
-- Código organizado y comprensible.
-- Esquema de datos y decisiones de arquitectura documentados.
-- Pruebas que cubran comportamiento y permisos.
-- Instrucciones reproducibles y demo verificable.
-- Lista explícita de limitaciones y funciones futuras.
-
-Este plan describe objetivos de implementación; no afirma que el MVP ya esté terminado.
+No cierres una tarea solo por crear archivos o documentar una idea. Comprueba el comportamiento, ejecuta las pruebas relevantes y mantén commits pequeños con mensajes descriptivos.

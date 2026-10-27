@@ -1,28 +1,26 @@
 # Registro de progreso y aprendizaje
 
-Este registro documenta el proceso real de construcción del MVP. Separa la planificación del código implementado y evita afirmar que algo funciona sin una prueba o evidencia.
+Este archivo documenta el desarrollo real del Core Feed. Separa el trabajo realizado de la planificación y no afirma que una función exista sin evidencia.
 
-## 2026-10-25 — Alcance inicial del MVP
+## 2026-10-27 — Delimitación del Core Feed
 
-**Tipo:** planificación y documentación.
+**Tipo:** planificación y documentación; no es una funcionalidad implementada.
 
-**Objetivo:** delimitar FraterChrist como proyecto personal de portafolio, separado de la futura iniciativa pública.
+**Objetivo:** definir un MVP terminable y demostrable que cubra análisis, modelado, API REST, autenticación, permisos, frontend y calidad.
 
-**Trabajo documentado:**
-- Se definió el alcance inicial del Feed: publicaciones, respuestas directas, cuentas y tres niveles de visibilidad.
-- Se documentó la arquitectura propuesta con Django REST Framework, React, TypeScript, Vite y PostgreSQL.
-- Se añadió un UML del dominio y una hoja de ruta enlazada a las Issues #20–#27.
-- Se reorganizaron los documentos para centrarlos en la implementación del MVP.
+**Decisiones:**
+- El Core incluye registro/sesión, publicaciones de texto, feed cronológico, visibilidad pública/privada y respuestas directas.
+- El modelo se reduce a usuario Django y publicación con relación opcional a una raíz.
+- Las respuestas no pueden anidarse y heredan la visibilidad de la raíz.
+- La interfaz será mínima; la autorización pertenece al backend.
+- Fotos, videos y visibilidad para miembros se posponen a una fase de expansión.
+- El trabajo se ordena en las issues #20–#27; #20 es el punto de partida.
 
-**Aprendizaje por profundizar:** relaciones entre modelos, autenticación y autorización en Django, almacenamiento protegido de medios, pruebas de API e integración continua.
-
-**Estado verificable:** planificación documentada; la aplicación aún no está implementada. Esta entrada no cuenta como una funcionalidad terminada.
+**Estado verificable:** alcance, requisitos, arquitectura, diagramas y backlog documentados. La aplicación aún no está implementada.
 
 ---
 
 ## Plantilla para la próxima sesión
-
-Copia esta sección al final del archivo y completa los campos. Elimina cualquier afirmación que no puedas respaldar con evidencia.
 
 ### AAAA-MM-DD — Título breve
 

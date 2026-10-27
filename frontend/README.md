@@ -1,16 +1,17 @@
 # Frontend
 
-Frontend previsto: React, TypeScript y Vite.
+Frontend previsto: React, TypeScript y Vite. Su objetivo es consumir la API REST del Core Feed, no sustituir sus controles de seguridad.
 
-Estructura objetivo:
+## Alcance mínimo
 
-~~~text
-frontend/src/
-├── app/
-├── features/
-│   ├── auth/
-│   └── feed/
-└── shared/
-~~~
+- Registro, inicio y cierre de sesión.
+- Feed cronológico de publicaciones visibles.
+- Formulario de publicación de texto con visibilidad pública/privada.
+- Respuestas simples a publicaciones raíz.
+- Estados de carga, vacío, validación y error.
 
-La interfaz comenzará cuando la API del Feed y sus permisos estén definidos. El trabajo está organizado en la [Issue #25](https://github.com/IsaacToDv/FraterChrist/issues/25). Esta carpeta todavía no contiene una interfaz implementada.
+La autenticación se hará con sesión de Django y protección CSRF. Configura el proxy de desarrollo de Vite cuando se implemente la interfaz.
+
+Consulta la [Issue #25](https://github.com/IsaacToDv/FraterChrist/issues/25), los [requisitos](../docs/REQUISITOS.md) y la [arquitectura](../docs/ARQUITECTURA.md).
+
+**Estado:** esta carpeta todavía no contiene una interfaz implementada.
